@@ -11,4 +11,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ColorGame.unity
     guid: b7a3e628967f445bab5e7b805ff52cf5
+  - enabled: 1
+    path: Assets/Scenes/escapeRoom.unity
+    guid: e85d6f4d27d0a45e9818af49647b5245
+  - enabled: 1
+    path: Assets/Scenes/Stroop3D.unity
+    guid: 6584a8c5830da4961be03237aba891d5
   m_configObjects: {}

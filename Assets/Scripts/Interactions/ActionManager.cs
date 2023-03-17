@@ -20,6 +20,7 @@ public class ActionManager : MonoBehaviour
     public bool bedClueFind = false;
     public bool lampClueFind = false;
     public bool tableClueFind = false;
+    public bool arcadeClueFind = false;
 
     private void Awake()
     {
@@ -54,39 +55,42 @@ public class ActionManager : MonoBehaviour
             case "plante" or "lit" or "table" or "lampe":
                 ShowClueColor(name);
                 break;
+            case "arcade":
+                ArcadeAction();
+                break;
+
 
 
         }
 
     }
 
+    public void ArcadeAction()
+    {
+        SceneManager.LoadScene("Stroop3D");
+    }
+
     public void ArmoireActions(ActionManager instance)
     {
+        //Récupération et affichage des indices des 4 cubes de couleurs
+        for (int i = 1; i <= 4; i++)
+        {
+            // Récupération de l'indice du Cube1
+            string cubeName = "Cube" + i.ToString();
 
-        //Récupération et affichage de l'indice du Cube1
-        Image Cube1 = GameObject.Find("Cube1").GetComponent<Image>();    
-        TextMeshProUGUI TextCube1 = GameObject.Find("TextCube1").GetComponent<TextMeshProUGUI>();      
-        Cube1.color = InventoryManager.inventory.clueColorList[0].Color;
-        TextCube1.text = "1";
+            // Recherche du GameObject avec le nom généré
+            GameObject cubeObject = GameObject.Find(cubeName);
 
-        //Récupération et affichage de l'indice du Cube1
-        Image Cube2 = GameObject.Find("Cube2").GetComponent<Image>();
-        TextMeshProUGUI TextCube2 = GameObject.Find("TextCube2").GetComponent<TextMeshProUGUI>();
-        Cube2.color = InventoryManager.inventory.clueColorList[1].Color;
-        TextCube2.text = "2";
+            // Récupération des composants Image et TextMeshProUGUI
+            Image cubeImage = cubeObject.GetComponent<Image>();
+            TextMeshProUGUI textMeshProUGUI = cubeObject.transform.Find("TextCube" + i.ToString()).GetComponent<TextMeshProUGUI>();
 
-        //Récupération et affichage de l'indice du Cube1
-        Image Cube3 = GameObject.Find("Cube3").GetComponent<Image>();
-        TextMeshProUGUI TextCube3 = GameObject.Find("TextCube3").GetComponent<TextMeshProUGUI>();
-        Cube3.color = InventoryManager.inventory.clueColorList[2].Color;
-        TextCube3.text = "3";
+            // Mise à jour de la couleur de l'image et du texte
+            cubeImage.color = InventoryManager.inventory.clueColorList[i - 1].Color;
+            textMeshProUGUI.text = i.ToString();
+        }
 
-        //Récupération et affichage de l'indice du Cube1
-        Image Cube4 = GameObject.Find("Cube4").GetComponent<Image>();
-        TextMeshProUGUI TextCube4 = GameObject.Find("TextCube4").GetComponent<TextMeshProUGUI>();
-        Cube4.color = InventoryManager.inventory.clueColorList[3].Color;
-        TextCube4.text = "4";
-
+     
 
 
         if (!isOpen){

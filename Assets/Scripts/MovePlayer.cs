@@ -5,7 +5,7 @@ using UnityEngine;
 public class MovePlayer : MonoBehaviour
 {
     public float speed = 5f;
-   
+
     const int RIGHT = 1;
     const int LEFT = -1;
     const int UP = 2;
@@ -48,8 +48,8 @@ public class MovePlayer : MonoBehaviour
         {
             animator.SetInteger("Direction", 0);
         }
-        
+
     }
-    
+
 }
 

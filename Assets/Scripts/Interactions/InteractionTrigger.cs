@@ -61,7 +61,7 @@ public class InteractionTrigger : MonoBehaviour
         Interaction plantRight = new Interaction("plantRight", "Plante", actionsPlant, 2, "clue");
         interactions.Add(plantRight);
 
-        string[] actionsLibrary = new string[] { "Ouvrir le libre bleu", "Ouvrir le livre vert" };
+        string[] actionsLibrary = new string[] { "Ouvrir le libre bleu", "Regarder sous l'étagère" };
         Interaction library = new Interaction("libraryLeft", "Bibliothèque", actionsLibrary, 1, "clue");
         interactions.Add(library);
 
@@ -80,6 +80,10 @@ public class InteractionTrigger : MonoBehaviour
         string[] actionTable = new string[] { "Regarder sous la table", "Déplacer la table" };
         Interaction tvPlace = new Interaction("tvPlace", "table", actionTable, 1, "clue");
         interactions.Add(tvPlace);
+
+        string[] actionArcade = new string[] { "Allumer l'arcade de jeu", "Regarder le papier tombé sous l'arcade" };
+        Interaction arcadeGame = new Interaction("jeu", "Arcade", actionArcade, 1, "game");
+        interactions.Add(arcadeGame);
     }
 
     //Renvoie une interaction
