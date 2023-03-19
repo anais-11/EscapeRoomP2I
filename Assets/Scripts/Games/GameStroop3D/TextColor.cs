@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class TextColor : MonoBehaviour
+public class TextColor 
 {
     public int id;
     public Color color;

@@ -9,6 +9,9 @@ public class InventoryStroopGame : MonoBehaviour
     public int nbGreen { get; set; }
     public int nbBlue { get; set; }
     public int nbYellow { get; set; }
+    public int nbLives { get; set; }
+
+    public List<TextColor> listText;
 
     //nombre 
     
@@ -16,7 +19,7 @@ public class InventoryStroopGame : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        nbLives = 4;   
     }
 
     // Update is called once per frame

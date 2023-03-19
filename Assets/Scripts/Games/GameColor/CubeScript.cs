@@ -7,7 +7,6 @@ public class CubeScript : MonoBehaviour
     public int id;
     private GameColorManager gameColorManager;
     public Color originalColor;
-    private Renderer renderer;
 
 
    
