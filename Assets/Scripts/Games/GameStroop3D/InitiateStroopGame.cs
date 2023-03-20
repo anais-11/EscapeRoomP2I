@@ -41,19 +41,20 @@ public class InitiateStroopGame : MonoBehaviour
         //On créer les différents objet text qui apparaîtront à l'écran
         InitiateTextColor();
 
-
+       
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Replay()
     {
-
+        ListTexts = new List<TextColor>();
+        InitiateColorToFind();
+        InitiateTextColor();
     }
 
     public void InitiateColor()
     {
-        Color colorBlue = new Color32(232, 11, 11, 255);
-        Color colorRed = new Color32(11, 111, 232, 255);
+        Color colorRed = new Color32(232, 11, 11, 255);
+        Color colorBlue = new Color32(11, 111, 232, 255);
         Color colorYellow = new Color32(241, 211, 25, 255);
         Color colorGreen = new Color32(46, 196, 16, 255);
         colorList = new List<Color>() { colorRed, colorBlue, colorYellow, colorGreen };

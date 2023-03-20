@@ -1,13 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class StroopGameManager : MonoBehaviour
 {
+    public InitiateStroopGame initiateStroopGame;
     public InventoryStroopGame inventory;
     public int indexPlayer;
     public TextMeshProUGUI TextDisplayed;
     public HealthState healthState;
+    public Animator GameOverAnimator;
+
 
 
 
@@ -15,7 +19,7 @@ public class StroopGameManager : MonoBehaviour
     void Start()
     {
         indexPlayer = 0;
-        inventory = FindObjectOfType<InventoryStroopGame>();
+        initiateStroopGame = FindObjectOfType<InitiateStroopGame>();
         healthState = FindObjectOfType<HealthState>();
         TextDisplayed = GameObject.Find("ColorName").GetComponent<TextMeshProUGUI>();
         DisplayColorText();
@@ -49,11 +53,30 @@ public class StroopGameManager : MonoBehaviour
         }
         else
         {
-            
-                Debug.Log("Wrong !");
-                healthState.WrongDiamants();
-            
+            Debug.Log("Wrong !");
+            healthState.WrongDiamants();
+
+            if (healthState.alive==false)
+            {
+                GameOverAnimator.SetBool("isOpen", true);
+                
+            }
+
         }
 
     }
+
+    public void Replay()
+    {
+        GameOverAnimator.SetBool("isOpen", false);
+        healthState.RelivePlayer();
+        initiateStroopGame.Replay();
+    }
+
+    public void BackToRoom()
+    {
+        SceneManager.LoadScene("EscapeRoom");
+    }
+
+    
 }

@@ -6,12 +6,13 @@ public class PlayerWalk : MonoBehaviour
 {
     public float speed;
     public CapsuleCollider playerCollider;
+    public HealthState healthState;
 
 
     // Start is called before the first frame update
     void Start()
     {
-
+        healthState = FindObjectOfType<HealthState>();
         playerCollider = gameObject.GetComponent<CapsuleCollider>();
     }
 
@@ -19,28 +20,33 @@ public class PlayerWalk : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Si on tourne à droite
-        if (Input.GetKey(KeyCode.RightArrow))
+        //Le joueur ne peut avancer seulement s'il est vivant
+        if (healthState.alive == true)
         {
-            transform.Rotate(0, 90 * Time.deltaTime, 0);
-        }
+            //Si on tourne à droite
+            if (Input.GetKey(KeyCode.RightArrow))
+            {
+                transform.Rotate(0, 90 * Time.deltaTime, 0);
+            }
 
-        //Si on tourne à gauche
-        if(Input.GetKey(KeyCode.LeftArrow))
-        {
-            transform.Rotate(0, -90 * Time.deltaTime, 0);
-        }
+            //Si on tourne à gauche
+            if (Input.GetKey(KeyCode.LeftArrow))
+            {
+                transform.Rotate(0, -90 * Time.deltaTime, 0);
+            }
 
-        //Si on avance
-        if (Input.GetKey(KeyCode.UpArrow))
-        {
-            transform.Translate(0, 0, speed * Time.deltaTime);
-        }
+            //Si on avance
+            if (Input.GetKey(KeyCode.UpArrow))
+            {
+                transform.Translate(0, 0, speed * Time.deltaTime);
+            }
 
-        //Si on recule
-        if(Input.GetKey(KeyCode.DownArrow))
-        {
-            transform.Translate(0, 0, -(speed/2) * Time.deltaTime);
+            //Si on recule
+            if (Input.GetKey(KeyCode.DownArrow))
+            {
+                transform.Translate(0, 0, -(speed / 2) * Time.deltaTime);
+            }
         }
+       
     }
 }
