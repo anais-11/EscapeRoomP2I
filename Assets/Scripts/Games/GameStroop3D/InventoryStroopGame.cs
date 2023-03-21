@@ -1,30 +1,43 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class InventoryStroopGame : MonoBehaviour
 {
     //nombre de diamants que le joueur doit rammasser
-    public int nbRed { get; set; }
-    public int nbGreen { get; set; }
-    public int nbBlue { get; set; }
-    public int nbYellow { get; set; }
-    public int nbLives { get; set; }
+    public int NbRed { get; set; }
+    public int NbGreen { get; set; }
+    public int NbBlue { get; set; }
+    public int NbYellow { get; set; }
 
     public List<TextColor> listText;
+    public TextMeshProUGUI NbDiams { get; set; }
+    public int DiamsCount { get; set; }
+    public TextMeshProUGUI NbDiamsTotal { get; set; }
+    public int DiamsTotal { get; set; }
 
-    //nombre 
-    
 
-    // Start is called before the first frame update
-    void Start()
+
+    private void Start()
     {
-        nbLives = 4;   
+        InitiateNbDiams();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        NbDiams = GameObject.Find("diamsCounter").GetComponent<TextMeshProUGUI>();
+        NbDiams.text = DiamsCount.ToString();
+
+    }
+
+    public void InitiateNbDiams()
+    {
+        DiamsCount = 0;
+        DiamsTotal = NbBlue + NbGreen + NbRed + NbYellow;
+
+        NbDiamsTotal = GameObject.Find("diamsTotal").GetComponent<TextMeshProUGUI>();
+        NbDiamsTotal.text = DiamsTotal.ToString();
     }
 }

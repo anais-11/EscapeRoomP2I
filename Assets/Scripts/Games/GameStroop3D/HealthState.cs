@@ -22,8 +22,11 @@ public class HealthState : MonoBehaviour
 
     public void RelivePlayer()
     {
-        alive = true;
+        alive = true;        
         healthBar.SetMaxHealth(4);
+        currentHealth = maxHealth;
+        healthBar.SetHealth(currentHealth);
+
     }
 
 

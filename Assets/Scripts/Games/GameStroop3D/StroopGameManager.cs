@@ -11,6 +11,8 @@ public class StroopGameManager : MonoBehaviour
     public TextMeshProUGUI TextDisplayed;
     public HealthState healthState;
     public Animator GameOverAnimator;
+    public Animator animatorWelcome;
+    public Animator animatorTextColor;
 
 
 
@@ -18,17 +20,30 @@ public class StroopGameManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        InitiateManager();
+    }
+
+    public void DisplayWelcome()
+    {
+        //Affiche la fenêtre de bienvenue du mini-jeu
+        animatorWelcome.SetBool("isOpen", true);
+    }
+
+    //Permet de fermer la fenêtre de bienvenue
+    public void CloseWelcome()
+    {
+        animatorWelcome.SetBool("isOpen", false);
+        animatorTextColor.SetBool("isOpen", true);
+    }
+
+    public void InitiateManager()
+    {
+        animatorWelcome.SetBool("isOpen", true);
         indexPlayer = 0;
         initiateStroopGame = FindObjectOfType<InitiateStroopGame>();
         healthState = FindObjectOfType<HealthState>();
         TextDisplayed = GameObject.Find("ColorName").GetComponent<TextMeshProUGUI>();
         DisplayColorText();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     public void DisplayColorText()
@@ -41,21 +56,37 @@ public class StroopGameManager : MonoBehaviour
         TextDisplayed.color = inventory.listText[indexPlayer].color;
     }
 
+    //Vérifie si l'utilisateur a ramassé le bon diamant
     public void VerifyOrderDiams(string colorDiams)
     {
+        //On récupère le diamant qu'il doit ramasser
         TextColor textReference = inventory.listText[indexPlayer];
 
+        //Si le diamant choisi est celui qu'il faut ramasser,on passe au texte suivant
         if (colorDiams == textReference.text)
         {
             Debug.Log("OK");
             indexPlayer++;
-            DisplayColorText();
+            inventory.DiamsCount++;
+
+            //Si l'utilisateur a trouvé tous les diamants, il a fini
+            if (inventory.DiamsCount == inventory.DiamsTotal)
+            {                
+                animatorTextColor.SetBool("isOpen", false);
+            }
+            else
+            {
+                DisplayColorText();
+            }
+            
         }
+        //Sinon on enlève un point de vie au joueur
         else
         {
             Debug.Log("Wrong !");
             healthState.WrongDiamants();
 
+            //On vérifie si GameOver 
             if (healthState.alive==false)
             {
                 GameOverAnimator.SetBool("isOpen", true);
@@ -66,13 +97,16 @@ public class StroopGameManager : MonoBehaviour
 
     }
 
+    //Permet de recommencer une partie
     public void Replay()
     {
         GameOverAnimator.SetBool("isOpen", false);
         healthState.RelivePlayer();
         initiateStroopGame.Replay();
+        InitiateManager();
     }
 
+    //Permet de retourner vers la salle principale
     public void BackToRoom()
     {
         SceneManager.LoadScene("EscapeRoom");

@@ -20,7 +20,7 @@ public class HealthBar : MonoBehaviour
 
     public void SetHealth(int value)
     {
-        Debug.Log("bar ok");
+        
         slider.value = value;
     }
 }

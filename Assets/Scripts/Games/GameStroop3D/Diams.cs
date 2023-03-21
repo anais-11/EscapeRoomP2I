@@ -7,11 +7,15 @@ public class Diams : MonoBehaviour
     public string color { get; set; }
     public bool isInCollision;
     StroopGameManager gameManager;
+    public GameObject interactObject;
+    public Animator interactAnimator;
 
     // Use this for initialization
     void Start()
     {
         gameManager = FindObjectOfType<StroopGameManager>();
+        interactObject = GameObject.Find("Interact");
+        interactAnimator = interactObject.GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -20,20 +24,22 @@ public class Diams : MonoBehaviour
         if (isInCollision && Input.GetKeyDown(KeyCode.E))
         {
             gameObject.SetActive(false);
+            interactAnimator.SetBool("isOpen", false);
             VerifyDiamsColor();
-
-
         }
+
     }
 
     private void OnCollisionEnter(Collision infoCollision)
     {
         isInCollision = true;
+        interactAnimator.SetBool("isOpen", true);
 
     }
     private void OnCollisionExit(Collision infoCollision)
     {
         isInCollision = false;
+        interactAnimator.SetBool("isOpen", false);
     }
 
     public void VerifyDiamsColor()

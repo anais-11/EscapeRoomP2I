@@ -6,9 +6,7 @@ using UnityEngine.SceneManagement;
 [DefaultExecutionOrder(-1)]
 public class InitiateStroopGame : MonoBehaviour
 {
-    public InventoryStroopGame inventory;
-    public Animator animatorWelcome;
-    public Animator animatorTextColor;
+    public InventoryStroopGame inventory;  
     public GameObject RedDiamPrefab;
     public GameObject BlueDiamPrefab;
     public GameObject GreenDiamPrefab;
@@ -17,6 +15,7 @@ public class InitiateStroopGame : MonoBehaviour
 
     public List<Color> colorList;
     public List<TextColor> ListTexts = new List<TextColor>();
+    public List<GameObject> ListDiams = new List<GameObject>();
 
     public Terrain terrain;
 
@@ -31,8 +30,7 @@ public class InitiateStroopGame : MonoBehaviour
         inventory = FindObjectOfType<InventoryStroopGame>();
         terrain = FindObjectOfType<Terrain>();
 
-        //Affiche la fenêtre de bienvenue du mini-jeu
-        animatorWelcome.SetBool("isOpen", true);
+        
 
         //On crée les diamants sur la map en définissant le nombre de diamants de chaque couleur que le joueur doit trouver
         InitiateColorToFind();
@@ -44,9 +42,20 @@ public class InitiateStroopGame : MonoBehaviour
        
     }
 
+    //Permet de recommencer le jeu
     public void Replay()
     {
-        ListTexts = new List<TextColor>();
+        ListTexts.Clear();
+        inventory.listText.Clear();
+
+        //Permet de supprimer tous les diamants de la map
+        foreach (GameObject diam in ListDiams)
+        {
+            Destroy(diam);
+        }
+        ListDiams.Clear();
+
+        //Nouvelle création de diamants et de textes colorés
         InitiateColorToFind();
         InitiateTextColor();
     }
@@ -61,12 +70,7 @@ public class InitiateStroopGame : MonoBehaviour
 
     }
 
-    //Permet de fermer la fenêtre de bienvenue
-    public void CloseWelcome()
-    {
-        animatorWelcome.SetBool("isOpen", false);
-        animatorTextColor.SetBool("isOpen", true);
-    }
+    
 
     //Permet de retourner vers la salle principale
     public void ReturnToRoom()
@@ -78,18 +82,18 @@ public class InitiateStroopGame : MonoBehaviour
     {
         //On instancie combien de texte d'une couleur spécifique le joueur devra trouver
         //Ex : le joueur devra trouver entre 1 et 3 diamants de couleur bleu
-        inventory.nbBlue = Random.Range(2, 4);
+        inventory.NbBlue = Random.Range(2, 4);
         //On crée le nombre de diamants nécessaires
-        CreateDiams(inventory.nbBlue, BlueDiamPrefab,"bleu");
+        CreateDiams(inventory.NbBlue, BlueDiamPrefab,"bleu");
 
-        inventory.nbYellow = Random.Range(2, 4);
-        CreateDiams(inventory.nbYellow, YellowDiamPrefab, "jaune");
+        inventory.NbYellow = Random.Range(2, 4);
+        CreateDiams(inventory.NbYellow, YellowDiamPrefab, "jaune");
 
-        inventory.nbRed = Random.Range(2, 4);
-        CreateDiams(inventory.nbRed, RedDiamPrefab, "rouge");
+        inventory.NbRed = Random.Range(2, 4);
+        CreateDiams(inventory.NbRed, RedDiamPrefab, "rouge");
 
-        inventory.nbGreen = Random.Range(2, 4);
-        CreateDiams(inventory.nbGreen, GreenDiamPrefab,"vert");
+        inventory.NbGreen = Random.Range(2, 4);
+        CreateDiams(inventory.NbGreen, GreenDiamPrefab,"vert");
 
 
 
@@ -123,6 +127,8 @@ public class InitiateStroopGame : MonoBehaviour
             diams.AddComponent<Diams>();
             diams.GetComponent<Diams>().color = color;
 
+            ListDiams.Add(diams);
+
         }
     }
 
@@ -130,14 +136,14 @@ public class InitiateStroopGame : MonoBehaviour
     public void InitiateTextColor()
     {
         int  id= 0;
-        Debug.Log("Bleu : " + inventory.nbBlue);
-        CreateText(inventory.nbBlue, "bleu",ref id) ;
-        Debug.Log("Vert : " + inventory.nbGreen);
-        CreateText(inventory.nbGreen, "vert", ref id);
-        Debug.Log("Rouge : " + inventory.nbRed);
-        CreateText(inventory.nbRed, "rouge", ref id);
-        Debug.Log("Jaune : " + inventory.nbYellow);
-        CreateText(inventory.nbYellow, "jaune", ref id);
+        Debug.Log("Bleu : " + inventory.NbBlue);
+        CreateText(inventory.NbBlue, "bleu",ref id) ;
+        Debug.Log("Vert : " + inventory.NbGreen);
+        CreateText(inventory.NbGreen, "vert", ref id);
+        Debug.Log("Rouge : " + inventory.NbRed);
+        CreateText(inventory.NbRed, "rouge", ref id);
+        Debug.Log("Jaune : " + inventory.NbYellow);
+        CreateText(inventory.NbYellow, "jaune", ref id);
         MixTextColor();
 
         //On instancie la liste dans l'inventaire
