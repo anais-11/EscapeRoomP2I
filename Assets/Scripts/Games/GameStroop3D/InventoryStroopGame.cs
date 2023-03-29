@@ -40,4 +40,17 @@ public class InventoryStroopGame : MonoBehaviour
         NbDiamsTotal = GameObject.Find("diamsTotal").GetComponent<TextMeshProUGUI>();
         NbDiamsTotal.text = DiamsTotal.ToString();
     }
+
+    //Permet de savoir si le joueur a ramassé tous les diamants
+    public bool VerifyDiamsCount()
+    {
+        bool equal = false;
+
+        if (DiamsCount == DiamsTotal)
+        {
+            equal = true;
+        }
+        return equal;
+    }
+
 }

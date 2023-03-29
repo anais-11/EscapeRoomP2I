@@ -70,7 +70,7 @@ public class StroopGameManager : MonoBehaviour
             inventory.DiamsCount++;
 
             //Si l'utilisateur a trouvé tous les diamants, il a fini
-            if (inventory.DiamsCount == inventory.DiamsTotal)
+            if (inventory.VerifyDiamsCount())
             {                
                 animatorTextColor.SetBool("isOpen", false);
             }

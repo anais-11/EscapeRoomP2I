@@ -46,4 +46,6 @@ public class Diams : MonoBehaviour
     {
         gameManager.VerifyOrderDiams(color);
     }
+
+    
 }

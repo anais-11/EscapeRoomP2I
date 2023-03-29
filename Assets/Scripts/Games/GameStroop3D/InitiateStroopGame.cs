@@ -47,6 +47,7 @@ public class InitiateStroopGame : MonoBehaviour
     {
         ListTexts.Clear();
         inventory.listText.Clear();
+        inventory.InitiateNbDiams();
 
         //Permet de supprimer tous les diamants de la map
         foreach (GameObject diam in ListDiams)
